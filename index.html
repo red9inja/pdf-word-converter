@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free online PDF to Word converter. Convert PDF files to Word documents instantly with high quality conversion.">
-    <meta name="keywords" content="pdf to word, pdf converter, docx converter, free pdf converter, online converter">
-    <title>Free PDF to Word Converter Online | Convert PDF to DOCX</title>
+    <meta name="description" content="Free online PDF tools. Convert, merge, split, compress PDF files instantly.">
+    <meta name="keywords" content="pdf tools, pdf converter, merge pdf, split pdf, compress pdf, free pdf tools">
+    <title>Free PDF Tools Online | Convert, Merge, Split, Compress</title>
     <link rel="stylesheet" href="style.css">
     
     <!-- Google AdSense -->
@@ -14,11 +14,11 @@
 </head>
 <body>
     <header>
-        <h1>Free PDF to Word Converter</h1>
-        <p>Convert your PDF files to editable Word documents instantly</p>
+        <h1>Free PDF Tools</h1>
+        <p>All your PDF needs in one place</p>
     </header>
 
-    <!-- AdSense Top Banner - 728x90 -->
+    <!-- AdSense Top Banner -->
     <div class="ad-banner">
         <ins class="adsbygoogle"
              style="display:inline-block;width:728px;height:90px"
@@ -30,26 +30,75 @@
     </div>
 
     <main>
-        <div class="converter-container">
-            <div class="upload-section">
-                <input type="file" id="fileInput" accept=".pdf" hidden>
-                <button onclick="document.getElementById('fileInput').click()" class="upload-btn">
-                    Choose PDF File
-                </button>
-                <p id="fileName"></p>
+        <div class="tools-container">
+            <!-- Tool Selection -->
+            <div class="tool-selector">
+                <h2>Select Tool</h2>
+                <div class="tools-grid">
+                    <!-- Convert Tools -->
+                    <button class="tool-btn" data-tool="pdf-to-word">PDF to Word</button>
+                    <button class="tool-btn" data-tool="word-to-pdf">Word to PDF</button>
+                    <button class="tool-btn" data-tool="pdf-to-excel">PDF to Excel</button>
+                    <button class="tool-btn" data-tool="excel-to-pdf">Excel to PDF</button>
+                    <button class="tool-btn" data-tool="pdf-to-ppt">PDF to PowerPoint</button>
+                    <button class="tool-btn" data-tool="ppt-to-pdf">PowerPoint to PDF</button>
+                    <button class="tool-btn" data-tool="pdf-to-jpg">PDF to JPG</button>
+                    <button class="tool-btn" data-tool="jpg-to-pdf">JPG to PDF</button>
+                    
+                    <!-- Organize Tools -->
+                    <button class="tool-btn" data-tool="merge-pdf">Merge PDF</button>
+                    <button class="tool-btn" data-tool="split-pdf">Split PDF</button>
+                    <button class="tool-btn" data-tool="rotate-pdf">Rotate PDF</button>
+                    <button class="tool-btn" data-tool="delete-pages">Delete Pages</button>
+                    <button class="tool-btn" data-tool="extract-pages">Extract Pages</button>
+                    <button class="tool-btn" data-tool="organize-pdf">Organize PDF</button>
+                    
+                    <!-- Optimize Tools -->
+                    <button class="tool-btn" data-tool="compress-pdf">Compress PDF</button>
+                    <button class="tool-btn" data-tool="repair-pdf">Repair PDF</button>
+                    <button class="tool-btn" data-tool="optimize-pdf">Optimize PDF</button>
+                    
+                    <!-- Security Tools -->
+                    <button class="tool-btn" data-tool="protect-pdf">Protect PDF</button>
+                    <button class="tool-btn" data-tool="unlock-pdf">Unlock PDF</button>
+                    <button class="tool-btn" data-tool="sign-pdf">Sign PDF</button>
+                    <button class="tool-btn" data-tool="watermark-pdf">Watermark PDF</button>
+                    
+                    <!-- Edit Tools -->
+                    <button class="tool-btn" data-tool="edit-pdf">Edit PDF</button>
+                    <button class="tool-btn" data-tool="add-page-numbers">Page Numbers</button>
+                    <button class="tool-btn" data-tool="ocr-pdf">OCR PDF</button>
+                    <button class="tool-btn" data-tool="pdf-reader">PDF Reader</button>
+                </div>
             </div>
 
-            <button id="convertBtn" class="convert-btn" disabled>
-                Convert to Word
-            </button>
+            <!-- Tool Interface -->
+            <div class="tool-interface">
+                <h2 id="toolTitle">Select a tool to get started</h2>
+                
+                <div class="upload-section">
+                    <input type="file" id="fileInput" multiple hidden>
+                    <button onclick="document.getElementById('fileInput').click()" class="upload-btn">
+                        Choose Files
+                    </button>
+                    <p id="fileName"></p>
+                </div>
 
-            <div id="status" class="status"></div>
-            <div id="downloadSection" class="download-section" style="display: none;">
-                <a id="downloadLink" class="download-btn">Download Word File</a>
+                <!-- Tool-specific options -->
+                <div id="toolOptions" class="tool-options"></div>
+
+                <button id="processBtn" class="process-btn" disabled>
+                    Process Files
+                </button>
+
+                <div id="status" class="status"></div>
+                <div id="downloadSection" class="download-section" style="display: none;">
+                    <a id="downloadLink" class="download-btn">Download Result</a>
+                </div>
             </div>
         </div>
 
-        <!-- AdSense Sidebar - 300x600 -->
+        <!-- AdSense Sidebar -->
         <aside class="sidebar-ad">
             <ins class="adsbygoogle"
                  style="display:inline-block;width:300px;height:600px"
@@ -62,29 +111,29 @@
     </main>
 
     <section class="features">
-        <h2>Why Choose Our Converter?</h2>
+        <h2>Why Choose Our PDF Tools?</h2>
         <div class="feature-grid">
             <div class="feature">
                 <h3>Fast</h3>
-                <p>Convert files in seconds</p>
+                <p>Process files in seconds</p>
             </div>
             <div class="feature">
                 <h3>Secure</h3>
-                <p>Files deleted after conversion</p>
+                <p>Files deleted after 1 hour</p>
             </div>
             <div class="feature">
                 <h3>Free</h3>
                 <p>No registration required</p>
             </div>
             <div class="feature">
-                <h3>Any Device</h3>
-                <p>Works on mobile & desktop</p>
+                <h3>All Devices</h3>
+                <p>Works everywhere</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 PDF Word Converter | <a href="privacy.html">Privacy Policy</a></p>
+        <p>&copy; 2026 PDF Tools | <a href="privacy.html">Privacy Policy</a></p>
     </footer>
 
     <script src="script.js"></script>

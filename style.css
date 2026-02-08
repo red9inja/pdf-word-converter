@@ -34,9 +34,100 @@ header h1 {
 main {
     display: flex;
     gap: 20px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     flex-wrap: wrap;
+}
+
+.tools-container {
+    flex: 1;
+    min-width: 300px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.tool-selector {
+    margin-bottom: 30px;
+}
+
+.tool-selector h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.tool-btn {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    padding: 15px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9em;
+    color: #495057;
+}
+
+.tool-btn:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+    transform: translateY(-2px);
+}
+
+.tool-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.tool-interface {
+    border-top: 2px solid #e9ecef;
+    padding-top: 30px;
+}
+
+.tool-interface h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.tool-options {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    display: none;
+}
+
+.tool-options.active {
+    display: block;
+}
+
+.option-group {
+    margin-bottom: 15px;
+}
+
+.option-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #495057;
+    font-weight: 500;
+}
+
+.option-group input,
+.option-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1em;
 }
 
 .converter-container {
@@ -53,7 +144,7 @@ main {
     margin-bottom: 30px;
 }
 
-.upload-btn, .convert-btn, .download-btn {
+.upload-btn, .convert-btn, .download-btn, .process-btn {
     background: #667eea;
     color: white;
     border: none;
@@ -66,12 +157,12 @@ main {
     text-decoration: none;
 }
 
-.upload-btn:hover, .convert-btn:hover, .download-btn:hover {
+.upload-btn:hover, .convert-btn:hover, .download-btn:hover, .process-btn:hover {
     background: #5568d3;
     transform: translateY(-2px);
 }
 
-.convert-btn:disabled {
+.convert-btn:disabled, .process-btn:disabled {
     background: #ccc;
     cursor: not-allowed;
     transform: none;

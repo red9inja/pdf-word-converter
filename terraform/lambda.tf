@@ -52,11 +52,11 @@ resource "aws_lambda_function" "converter" {
   filename         = data.archive_file.lambda_zip.output_path
   function_name    = var.project_name
   role            = aws_iam_role.lambda_role.arn
-  handler         = "convert.lambda_handler"
+  handler         = "handler.lambda_handler"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
   runtime         = "python3.9"
-  timeout         = 300
-  memory_size     = 1024
+  timeout         = 900
+  memory_size     = 3008
 
   environment {
     variables = {

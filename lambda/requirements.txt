@@ -1,2 +1,12 @@
 pdf2docx
 boto3
+PyPDF2
+Pillow
+img2pdf
+openpyxl
+python-pptx
+reportlab
+pypdf
+pikepdf
+ocrmypdf
+python-docx
