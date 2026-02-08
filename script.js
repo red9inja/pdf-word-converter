@@ -30,7 +30,11 @@ const toolConfig = {
     'edit-pdf': { title: 'Edit PDF', accept: '.pdf', endpoint: '/edit/edit' },
     'add-page-numbers': { title: 'Add Page Numbers', accept: '.pdf', endpoint: '/edit/page-numbers', options: 'pageNumbers' },
     'ocr-pdf': { title: 'OCR PDF', accept: '.pdf', endpoint: '/edit/ocr', options: 'ocr' },
-    'pdf-reader': { title: 'PDF Reader', accept: '.pdf', endpoint: '/reader' }
+    'pdf-reader': { title: 'PDF Reader', accept: '.pdf', endpoint: '/reader' },
+    'resume-builder': { title: 'Resume Builder (ATS Optimized)', accept: '', endpoint: '/resume/build', options: 'resumeBuilder' },
+    'ats-checker': { title: 'ATS Score Checker', accept: '.pdf,.doc,.docx', endpoint: '/resume/ats-check' },
+    'resume-templates': { title: 'Resume Templates', accept: '', endpoint: '/resume/templates', options: 'templates' },
+    'cover-letter': { title: 'Cover Letter Generator', accept: '', endpoint: '/resume/cover-letter', options: 'coverLetter' }
 };
 
 // Tool option templates
@@ -129,6 +133,142 @@ const optionTemplates = {
                 <option value="deu">German</option>
                 <option value="hin">Hindi</option>
             </select>
+        </div>
+    `,
+    resumeBuilder: `
+        <div class="resume-form">
+            <h3>Personal Information</h3>
+            <div class="option-group">
+                <label>Full Name:</label>
+                <input type="text" id="fullName" placeholder="John Doe">
+            </div>
+            <div class="option-group">
+                <label>Email:</label>
+                <input type="email" id="email" placeholder="john@example.com">
+            </div>
+            <div class="option-group">
+                <label>Phone:</label>
+                <input type="tel" id="phone" placeholder="+1 234 567 8900">
+            </div>
+            <div class="option-group">
+                <label>LinkedIn:</label>
+                <input type="url" id="linkedin" placeholder="linkedin.com/in/johndoe">
+            </div>
+            
+            <h3>Professional Summary</h3>
+            <div class="option-group">
+                <label>Summary (ATS Optimized):</label>
+                <textarea id="summary" rows="4" placeholder="Experienced professional with..."></textarea>
+            </div>
+            
+            <h3>Work Experience</h3>
+            <div class="option-group">
+                <label>Job Title:</label>
+                <input type="text" id="jobTitle" placeholder="Senior Developer">
+            </div>
+            <div class="option-group">
+                <label>Company:</label>
+                <input type="text" id="company" placeholder="Tech Corp">
+            </div>
+            <div class="option-group">
+                <label>Duration:</label>
+                <input type="text" id="duration" placeholder="Jan 2020 - Present">
+            </div>
+            <div class="option-group">
+                <label>Responsibilities (one per line):</label>
+                <textarea id="responsibilities" rows="5" placeholder="- Led team of 5 developers&#10;- Increased performance by 40%"></textarea>
+            </div>
+            
+            <h3>Education</h3>
+            <div class="option-group">
+                <label>Degree:</label>
+                <input type="text" id="degree" placeholder="Bachelor of Computer Science">
+            </div>
+            <div class="option-group">
+                <label>University:</label>
+                <input type="text" id="university" placeholder="State University">
+            </div>
+            <div class="option-group">
+                <label>Year:</label>
+                <input type="text" id="gradYear" placeholder="2019">
+            </div>
+            
+            <h3>Skills (ATS Keywords)</h3>
+            <div class="option-group">
+                <label>Technical Skills (comma separated):</label>
+                <input type="text" id="skills" placeholder="Python, JavaScript, AWS, Docker, React">
+            </div>
+            
+            <h3>Template</h3>
+            <div class="option-group">
+                <label>Choose Template:</label>
+                <select id="resumeTemplate">
+                    <option value="modern">Modern (ATS Friendly)</option>
+                    <option value="professional">Professional</option>
+                    <option value="minimal">Minimal</option>
+                    <option value="creative">Creative</option>
+                </select>
+            </div>
+            
+            <div class="ats-tips">
+                <h4>ATS Optimization Tips:</h4>
+                <ul>
+                    <li>Use standard section headings</li>
+                    <li>Include relevant keywords from job description</li>
+                    <li>Use simple formatting (no tables, columns)</li>
+                    <li>Save as PDF or DOCX</li>
+                    <li>Use standard fonts (Arial, Calibri, Times New Roman)</li>
+                </ul>
+            </div>
+        </div>
+    `,
+    templates: `
+        <div class="template-gallery">
+            <h3>Choose a Template</h3>
+            <div class="template-grid">
+                <div class="template-card" data-template="modern">
+                    <div class="template-preview">Modern</div>
+                    <p>ATS Friendly - Clean & Professional</p>
+                </div>
+                <div class="template-card" data-template="professional">
+                    <div class="template-preview">Professional</div>
+                    <p>Traditional - Corporate Style</p>
+                </div>
+                <div class="template-card" data-template="minimal">
+                    <div class="template-preview">Minimal</div>
+                    <p>Simple - Focus on Content</p>
+                </div>
+                <div class="template-card" data-template="creative">
+                    <div class="template-preview">Creative</div>
+                    <p>Unique - Stand Out Design</p>
+                </div>
+            </div>
+        </div>
+    `,
+    coverLetter: `
+        <div class="option-group">
+            <label>Your Name:</label>
+            <input type="text" id="clName" placeholder="John Doe">
+        </div>
+        <div class="option-group">
+            <label>Company Name:</label>
+            <input type="text" id="clCompany" placeholder="Tech Corp">
+        </div>
+        <div class="option-group">
+            <label>Position:</label>
+            <input type="text" id="clPosition" placeholder="Senior Developer">
+        </div>
+        <div class="option-group">
+            <label>Hiring Manager Name (if known):</label>
+            <input type="text" id="clManager" placeholder="Jane Smith">
+        </div>
+        <div class="option-group">
+            <label>Your Key Skills (comma separated):</label>
+            <input type="text" id="clSkills" placeholder="Python, Leadership, Problem Solving">
+        </div>
+        <div class="option-group">
+            <label>Why this company?</label>
+            <textarea id="clWhy" rows="3" placeholder="I'm excited about your company because..."></textarea>
         </div>
     `
 };
@@ -271,6 +411,36 @@ function getToolOptions(optionType) {
             break;
         case 'ocr':
             options.language = document.getElementById('ocrLanguage')?.value;
+            break;
+        case 'resumeBuilder':
+            options.personalInfo = {
+                fullName: document.getElementById('fullName')?.value,
+                email: document.getElementById('email')?.value,
+                phone: document.getElementById('phone')?.value,
+                linkedin: document.getElementById('linkedin')?.value
+            };
+            options.summary = document.getElementById('summary')?.value;
+            options.experience = {
+                jobTitle: document.getElementById('jobTitle')?.value,
+                company: document.getElementById('company')?.value,
+                duration: document.getElementById('duration')?.value,
+                responsibilities: document.getElementById('responsibilities')?.value
+            };
+            options.education = {
+                degree: document.getElementById('degree')?.value,
+                university: document.getElementById('university')?.value,
+                year: document.getElementById('gradYear')?.value
+            };
+            options.skills = document.getElementById('skills')?.value;
+            options.template = document.getElementById('resumeTemplate')?.value;
+            break;
+        case 'coverLetter':
+            options.name = document.getElementById('clName')?.value;
+            options.company = document.getElementById('clCompany')?.value;
+            options.position = document.getElementById('clPosition')?.value;
+            options.manager = document.getElementById('clManager')?.value;
+            options.skills = document.getElementById('clSkills')?.value;
+            options.why = document.getElementById('clWhy')?.value;
             break;
     }
     
