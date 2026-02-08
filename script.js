@@ -22,7 +22,7 @@ document.getElementById('convertBtn').addEventListener('click', async function()
     const downloadSection = document.getElementById('downloadSection');
     
     statusDiv.className = 'status processing';
-    statusDiv.textContent = '⏳ Converting your PDF... This may take a minute.';
+    statusDiv.textContent = 'Converting your PDF... This may take a minute.';
     downloadSection.style.display = 'none';
     this.disabled = true;
 
@@ -51,7 +51,7 @@ document.getElementById('convertBtn').addEventListener('click', async function()
                 downloadLink.download = selectedFile.name.replace('.pdf', '.docx');
                 
                 statusDiv.className = 'status success';
-                statusDiv.textContent = '✅ Conversion successful! Click below to download.';
+                statusDiv.textContent = 'Conversion successful! Click below to download.';
                 downloadSection.style.display = 'block';
             } else {
                 throw new Error(result.error || 'Conversion failed');
@@ -62,7 +62,7 @@ document.getElementById('convertBtn').addEventListener('click', async function()
 
     } catch (error) {
         statusDiv.className = 'status error';
-        statusDiv.textContent = '❌ Conversion failed. Please try again or use a different file.';
+        statusDiv.textContent = 'Conversion failed. Please try again or use a different file.';
         console.error('Error:', error);
     } finally {
         document.getElementById('convertBtn').disabled = false;
