@@ -1,0 +1,12 @@
+# AWS credentials
+aws_region = "us-east-1"
+
+# Project settings
+project_name = "pdf-word-converter"
+domain_name  = "vimd.online"
+subdomain    = "pdf"
+
+# Cloudflare settings
+# Get these from Cloudflare dashboard
+cloudflare_api_token = "your-cloudflare-api-token-here"
+cloudflare_zone_id   = "your-cloudflare-zone-id-here"
