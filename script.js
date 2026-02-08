@@ -1,4 +1,4 @@
-// AWS API Gateway endpoint - Replace with your actual endpoint
+// AWS API Gateway endpoint - Auto-updated by GitHub Actions
 const API_ENDPOINT = 'https://YOUR-API-ID.execute-api.us-east-1.amazonaws.com/prod/convert';
 
 let selectedFile = null;

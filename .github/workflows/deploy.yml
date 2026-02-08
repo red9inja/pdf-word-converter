@@ -1,0 +1,129 @@
+name: Deploy Infrastructure
+
+on:
+  push:
+    branches:
+      - test
+      - dev
+      - prod
+    paths:
+      - 'terraform/**'
+      - 'lambda/**'
+      - '.github/workflows/deploy.yml'
+
+env:
+  AWS_REGION: us-east-1
+  DOMAIN_NAME: vimd.online
+  SUBDOMAIN: pdf
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.0
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Get Cloudflare Zone ID
+        id: cloudflare_zone
+        run: |
+          ZONE_ID=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=${{ env.DOMAIN_NAME }}" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" | jq -r '.result[0].id')
+          echo "zone_id=$ZONE_ID" >> $GITHUB_OUTPUT
+
+      - name: Set environment suffix
+        id: env_suffix
+        run: |
+          if [ "${{ github.ref_name }}" == "prod" ]; then
+            echo "suffix=" >> $GITHUB_OUTPUT
+            echo "subdomain=${{ env.SUBDOMAIN }}" >> $GITHUB_OUTPUT
+          else
+            echo "suffix=-${{ github.ref_name }}" >> $GITHUB_OUTPUT
+            echo "subdomain=${{ env.SUBDOMAIN }}-${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Terraform Init
+        working-directory: terraform
+        run: terraform init
+
+      - name: Terraform Workspace
+        working-directory: terraform
+        run: |
+          terraform workspace select ${{ github.ref_name }} || terraform workspace new ${{ github.ref_name }}
+
+      - name: Terraform Plan
+        working-directory: terraform
+        run: |
+          terraform plan \
+            -var="aws_region=${{ env.AWS_REGION }}" \
+            -var="project_name=pdf-converter${{ steps.env_suffix.outputs.suffix }}" \
+            -var="domain_name=${{ env.DOMAIN_NAME }}" \
+            -var="subdomain=${{ steps.env_suffix.outputs.subdomain }}" \
+            -var="cloudflare_api_token=${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -var="cloudflare_zone_id=${{ steps.cloudflare_zone.outputs.zone_id }}" \
+            -out=tfplan
+
+      - name: Terraform Apply
+        working-directory: terraform
+        run: terraform apply -auto-approve tfplan
+
+      - name: Get Terraform Outputs
+        id: tf_outputs
+        working-directory: terraform
+        run: |
+          echo "api_endpoint=$(terraform output -raw api_endpoint)" >> $GITHUB_OUTPUT
+          echo "website_url=$(terraform output -raw website_url)" >> $GITHUB_OUTPUT
+          echo "s3_bucket=$(terraform output -raw s3_website_bucket)" >> $GITHUB_OUTPUT
+
+      - name: Update script.js with API endpoint
+        run: |
+          sed -i "s|const API_ENDPOINT = '.*';|const API_ENDPOINT = '${{ steps.tf_outputs.outputs.api_endpoint }}';|g" script.js
+
+      - name: Upload website to S3
+        run: |
+          aws s3 sync . s3://${{ steps.tf_outputs.outputs.s3_bucket }} \
+            --exclude 'terraform/*' \
+            --exclude 'lambda/*' \
+            --exclude '.git/*' \
+            --exclude '.github/*' \
+            --exclude '*.sh' \
+            --exclude 'README*.md' \
+            --delete
+
+      - name: Invalidate CloudFront cache
+        run: |
+          DISTRIBUTION_ID=$(aws cloudfront list-distributions \
+            --query "DistributionList.Items[?Aliases.Items[?contains(@, '${{ steps.env_suffix.outputs.subdomain }}.${{ env.DOMAIN_NAME }}')]].Id" \
+            --output text)
+          if [ ! -z "$DISTRIBUTION_ID" ]; then
+            aws cloudfront create-invalidation \
+              --distribution-id $DISTRIBUTION_ID \
+              --paths "/*"
+          fi
+
+      - name: Deployment Summary
+        run: |
+          echo "## 🚀 Deployment Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Website URL:** ${{ steps.tf_outputs.outputs.website_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "**API Endpoint:** ${{ steps.tf_outputs.outputs.api_endpoint }}" >> $GITHUB_STEP_SUMMARY
+          echo "**S3 Bucket:** ${{ steps.tf_outputs.outputs.s3_bucket }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### URLs by Environment:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Test:** https://pdf-test.vimd.online" >> $GITHUB_STEP_SUMMARY
+          echo "- **Dev:** https://pdf-dev.vimd.online" >> $GITHUB_STEP_SUMMARY
+          echo "- **Prod:** https://pdf.vimd.online" >> $GITHUB_STEP_SUMMARY
