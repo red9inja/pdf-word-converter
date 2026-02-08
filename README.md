@@ -79,17 +79,17 @@ Complete online platform with 31 tools for PDF operations and professional resum
 
 ```
 User Browser
-    ↓
+    
 Cloudflare (DNS + DDoS Protection)
-    ↓
+    
 CloudFront (AWS CDN + SSL)
-    ↓
+    
 S3 Static Website (Frontend)
-    ↓
+    
 API Gateway (REST API)
-    ↓
+    
 Lambda Function (Processing)
-    ↓
+    
 S3 Bucket (Temporary File Storage)
 ```
 
@@ -138,14 +138,14 @@ S3 Bucket (Temporary File Storage)
 
 ### Setup GitHub Secrets
 
-Go to: **Repository → Settings → Secrets and variables → Actions**
+Go to: **Repository  Settings  Secrets and variables  Actions**
 
 Add these secrets:
 
 ```
-AWS_ACCESS_KEY_ID          → Your AWS access key
-AWS_SECRET_ACCESS_KEY      → Your AWS secret key
-CLOUDFLARE_API_TOKEN       → Your Cloudflare API token
+AWS_ACCESS_KEY_ID           Your AWS access key
+AWS_SECRET_ACCESS_KEY       Your AWS secret key
+CLOUDFLARE_API_TOKEN        Your Cloudflare API token
 ```
 
 **Get AWS Keys:**
@@ -163,18 +163,18 @@ aws iam create-access-key --user-name github-actions
 ```
 
 **Get Cloudflare API Token:**
-1. Cloudflare Dashboard → My Profile → API Tokens
-2. Create Token → Edit zone DNS
+1. Cloudflare Dashboard  My Profile  API Tokens
+2. Create Token  Edit zone DNS
 3. Permissions:
    - Zone - DNS - Edit
    - Zone - Zone - Read
-4. Zone Resources: Include → Specific zone → your-domain.com
-5. Create Token → Copy token
+4. Zone Resources: Include  Specific zone  your-domain.com
+5. Create Token  Copy token
 
 **Get Cloudflare Zone ID:**
 1. Cloudflare Dashboard
 2. Select your domain
-3. Overview → API section (right sidebar)
+3. Overview  API section (right sidebar)
 4. Copy Zone ID
 
 ### Create Branches
@@ -209,19 +209,19 @@ git checkout main
 git checkout test
 git merge main
 git push origin test
-# → Deploys to: https://pdf-test.your-domain.com
+#  Deploys to: https://pdf-test.your-domain.com
 
 # Deploy to dev environment
 git checkout dev
 git merge main
 git push origin dev
-# → Deploys to: https://pdf-dev.your-domain.com
+#  Deploys to: https://pdf-dev.your-domain.com
 
 # Deploy to production
 git checkout prod
 git merge main
 git push origin prod
-# → Deploys to: https://pdf.your-domain.com
+#  Deploys to: https://pdf.your-domain.com
 ```
 
 **What happens automatically:**
@@ -272,7 +272,7 @@ terraform output
 5. Submit application
 
 **Requirements:**
-- Original content (✅ You have 31 tools)
+- Original content ( You have 31 tools)
 - Privacy policy page (create one)
 - About page (optional but recommended)
 - At least 20-30 pages of content
@@ -406,11 +406,11 @@ aws s3 cp privacy.html s3://pdf.your-domain.com/
 ### Step 5: AdSense Approval Tips
 
 **Content Requirements:**
-- ✅ 31 unique tools (good!)
-- ✅ Original functionality
-- ✅ User-friendly interface
-- ✅ Mobile responsive
-- ✅ Fast loading
+-  31 unique tools (good!)
+-  Original functionality
+-  User-friendly interface
+-  Mobile responsive
+-  Fast loading
 
 **Add more content:**
 - Blog posts about PDF tips
@@ -519,11 +519,11 @@ aws s3 cp privacy.html s3://pdf.your-domain.com/
 ### On-Page SEO
 
 **Already implemented:**
-- ✅ Descriptive title tags
-- ✅ Meta descriptions
-- ✅ Semantic HTML
-- ✅ Mobile responsive
-- ✅ Fast loading
+-  Descriptive title tags
+-  Meta descriptions
+-  Semantic HTML
+-  Mobile responsive
+-  Fast loading
 
 **Add:**
 - Sitemap.xml
@@ -636,7 +636,7 @@ Set up CloudWatch alarms for:
 - AWS Support (if on paid plan)
 
 **Cloudflare Issues:**
-- Cloudflare Dashboard → Analytics
+- Cloudflare Dashboard  Analytics
 - Community forums
 
 **AdSense Issues:**
@@ -669,13 +669,13 @@ Set up CloudWatch alarms for:
 ## Security
 
 **Implemented:**
-- ✅ HTTPS only (SSL certificate)
-- ✅ CORS configured
-- ✅ Files auto-deleted after 1 hour
-- ✅ No user data stored
-- ✅ IAM least privilege
-- ✅ Cloudflare DDoS protection
-- ✅ Rate limiting
+-  HTTPS only (SSL certificate)
+-  CORS configured
+-  Files auto-deleted after 1 hour
+-  No user data stored
+-  IAM least privilege
+-  Cloudflare DDoS protection
+-  Rate limiting
 
 **Best practices:**
 - Rotate AWS keys regularly
@@ -716,4 +716,4 @@ For issues or questions:
 
 ---
 
-**Built with ❤️ for learning AWS, Terraform, and building profitable side projects**
+**Built with  for learning AWS, Terraform, and building profitable side projects**
