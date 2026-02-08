@@ -1,0 +1,17 @@
+{
+  "name": "pdf-word-converter",
+  "version": "1.0.0",
+  "description": "Free online PDF to Word converter",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel"
+  },
+  "dependencies": {
+    "formidable": "^3.5.1",
+    "pdf-lib": "^1.17.1"
+  },
+  "keywords": ["pdf", "word", "converter", "docx"],
+  "author": "",
+  "license": "MIT"
+}
